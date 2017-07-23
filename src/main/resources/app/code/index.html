@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <th:block th:include="script :: headerFragment" th:with="title='扫描验证条形码'"/>
+	</head>
+	<body>
+		<th:block th:include="index :: bodyFragment" />
+		<table class="table">
+			<tr>
+				<td width="10%">选择日期：</td>
+				<td width="30%"><input id="dateCode" readonly="readonly" class="form-control" style="width:200px;" /></td>
+				<td width="30%">正确条形码 (<code id="scanSuccess">0</code>)</td>
+				<td width="30%">错误条形码 (<code id="scanError">0</code>)</td>
+			</tr>
+			<tr height="60">
+				<td>料号名称：</td>
+				<td>
+					<select id="partName" style="width:300px;" class="form-control">
+						<option selected="selected" value="">请选择料号名称</option>
+					</select>
+					<br/>
+					<input type="text" id="codeValue" class="form-control" style="width:300px;" />
+				</td>
+				<td rowspan="2"><span id="rightcodes"></span></td>
+				<td rowspan="2"><span id="errorcodes"></span></td>
+			</tr>
+			<tr>
+				<td>
+					<a class="btn btn-primary " href="javascript:void(0);" id="btnScan">开始扫描</a><br/>
+					<a class="btn btn-primary " href="javascript:void(0);" id="btnStopScan" style="margin-top:3px;" disabled="disabled">停止扫描</a>
+				</td>
+				<td align="left">
+					<textarea name="codes" id="codesArea" class="form-control" style="width:300px;height:100px;"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4" class="text-right">
+					本次共扫描条形码 <code id="scanTotal">0</code>
+				</td>
+			</tr>
+		</table>
+		
+		<div id="iknow" class="container-fluid" style="margin:3px;display:none;">
+			<div id="row" style="height:210px;">
+				<div class="col-md-12"><span id="errmsg"></span></div>
+			</div>
+			<div id="row">
+				<div class="col-md-offset-4 col-md-8">
+					<button class="btn btn-default" id="btnIknow">确定知晓</button>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 声音播放器 -->
+		<audio controls="controls" id="alarm" style="display:none" loop="loop">
+		   <source th:src="@{/DATAS/TheShow.mp3}" /> 
+		</audio>
+		
+		<script type="text/javascript" th:src="@{/js/code/index.js}"></script>
+	</body>
+</html>

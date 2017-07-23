@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <th:block th:include="script :: headerFragment" th:with="title='样本码列表'"/>
+	</head>
+	<body>
+		<th:block th:include="index :: bodyFragment" />
+		<table align="center" class="table">
+			<thead>
+				<tr>
+					<th width="20%">料号名称</th>
+					<th width="20%">料号</th>
+					<th width="20%">厂商代码</th>
+					<th width="15%">版本</th>
+					<th width="15%">模具号</th>
+					<th width="10%">操作</th>
+				</tr>
+			</thead>
+			<tbody id="list">
+				
+			</tbody>
+			<script id="templateList" type="text/html">
+				{{each $data item index}}
+					<tr>
+						<td>{{item.partName}}</td>
+						<td>{{item.partNo}}</td>
+						<td>{{item.venderCode}}</td>
+						<td>{{item.versionNo}}</td>
+						<td>{{item.mouldCode}}</td>
+						<td>
+							<button class="btn btn-default btn-sm btn-edit" _id="{{item.id}}">编辑</button>
+							<button class="btn btn-default btn-sm btn-del" _id="{{item.id}}">删除</button>
+						</td>
+					</tr>
+				{{/each}}
+			</script>
+		</table>
+		
+		<script type="text/javascript" th:src="@{/js/sample/list.js}"></script>
+	</body>
+</html>

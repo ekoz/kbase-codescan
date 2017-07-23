@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <th:block th:include="script :: headerFragment" th:with="title='条形码扫描'"/>
+	</head>
+	<body th:fragment="bodyFragment">
+		<div class="container">
+			<div class="row">
+				<a class="btn btn-default" th:href="@{/sample/create}">样本码录入</a>
+				<a class="btn btn-default" th:href="@{/sample}">样本码列表</a>
+				<a class="btn btn-default" th:href="@{/code/index}">扫描验证条形码</a>
+				<a class="btn btn-default" th:href="@{/code}">条形码列表</a>
+			</div>
+		</div>
+		<hr/>
+	</body>
+</html>

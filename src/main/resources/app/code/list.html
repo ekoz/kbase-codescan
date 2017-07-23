@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <th:block th:include="script :: headerFragment" th:with="title='样本码列表'"/>
+	</head>
+	<body>
+		<th:block th:include="index :: bodyFragment" />
+		<table class="table">
+			<colgroup>
+				<col width="15%"/>
+				<col width="35%"/>
+				<col width="15%"/>
+				<col width="35%"/>
+			</colgroup>
+			<tr>
+				<td>样本名称</td>
+				<td><input class="form-control" type="text" id="partName" style="width:200px;" /></td>
+				<td>日期</td>
+				<td><input class="form-control" type="text" id="dateCode" style="width:200px;" /></td>
+			</tr>
+			<tr>
+				<td>状态</td>
+				<td><input class="form-control" type="text" id="partName" style="width:200px;" /></td>
+				<td colspan="2">
+					<input class="btn btn-default btn-sm" type="button" value="查询" id="btnQuery" />&nbsp;
+					<input class="btn btn-default btn-sm" type="button" value="导出" id="btnExport" />
+				</td>
+			</tr>
+		</table>
+		
+		<table class="table">
+			<thead>
+				<tr>
+					<th width="30%">样本名称</th>
+					<th width="30%">扫描码</th>
+					<th width="20%">状态</th>
+					<th width="20%">日期码</th>
+				</tr>
+			</thead>
+			<tbody id="list">
+				
+			</tbody>
+			<script id="templateList" type="text/html">
+				{{each $data item index}}
+					<tr _status="{{item.status}}">
+						<td>{{item.partName}}</td>
+						<td>{{item.scanCode}}</td>
+						<td>
+							{{if item.status==1}}
+								正确
+							{{else}}
+								错误
+							{{/if}}
+						</td>
+						<td>{{item.dateCode}}</td>
+					</tr>
+				{{/each}}
+			</script>
+		</table>
+		
+		<script type="text/javascript" th:src="@{/js/code/list.js}"></script>
+	</body>
+</html>
