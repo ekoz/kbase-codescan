@@ -27,3 +27,10 @@
 * 样本码列表/条形码列表的分页功能
 * 条形码列表的查询和导出功能
 * 历史数据，如果这个应用使用了三年以上，势必会产生很多数据，在校验流水号是否重复的时候会越来越慢，请思考如何处理历史数据的问题
+
+### 注意事项
+* POJO 对象都是采用 [lombok](https://projectlombok.org/) 自动生成 
+* spring.data.mongodb.uri= 如果配置了host等属性，就不能配置这个属性，要禁掉而不是设置为空，否则会抛出异常
+```
+Invalid mongo configuration, either uri or host/port/credentials must be specified
+```
