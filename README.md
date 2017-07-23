@@ -19,7 +19,7 @@
 * 管理员可录入和查看样本码，普通用户只能扫描条形码和查看已录入的条形码
 * 选中待扫描的料号名称，单击【开始扫描】，用扫描枪开始录入条形码，扫描到不符合规范的条形码会报警，所有条形码都会记录
 
-![扫描验证条形码](https://ekoz.github.io/kbase-codescan/src/main/resources/static/DATAS/code_index.png?raw=true "扫描验证条形码样例图")
+![扫描验证条形码](https://github.com/ekoz/kbase-codescan/blob/master/src/main/resources/static/DATAS/code_index.png?raw=true "扫描验证条形码样例图")
 
 ### 待完善的功能点
 * 目前 spring-security 的登录账号和用户名是在文件里配置写死的，需要实现成注册开放式
