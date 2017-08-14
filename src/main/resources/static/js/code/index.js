@@ -87,6 +87,7 @@ $('#codesArea').on({
 					var codesArea = $.trim($('#codesArea').val());
 					var codeValue = $('#codeValue').val();
 					var partName = $('#partName').find("option:selected").text();
+					var sampleId = $('#partName').find("option:selected").val();
 					
 					if (codeValue==''){
 						$('#codeValue').focus();
@@ -99,7 +100,7 @@ $('#codesArea').on({
 					
 					window.__scan_canEnter = false;
 					
-					var _data = {"dateCode": dateCode, "codesArea": codesArea, "codeValue": codeValue, "partName": partName};
+					var _data = {"sampleId": sampleId, "dateCode": dateCode, "codesArea": codesArea, "codeValue": codeValue, "partName": partName};
 					
 					window.__scan_total++;
 					

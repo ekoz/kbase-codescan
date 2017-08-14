@@ -74,7 +74,7 @@ public class CodeController {
 	 */
 	@RequestMapping("check")
 	@ResponseBody
-	public String check(@RequestParam String partName, @RequestParam String dateCode, @RequestParam String codeValue, @RequestParam String codesArea){
+	public String check(@RequestParam String sampleId, @RequestParam String partName, @RequestParam String dateCode, @RequestParam String codeValue, @RequestParam String codesArea){
 		//用来记录扫描日志
 		StringBuffer logBuffer = new StringBuffer();
 		StringBuffer errBuffer = new StringBuffer();
@@ -163,12 +163,13 @@ public class CodeController {
 		
 		//记录日志
 		Code code = new Code();
-		code.setPartNo(iPartNo);
-		code.setPartName(partName);
-		code.setVenderCode(iVenderCode);
-		code.setVersionNo(iVersionNo);
+//		code.setPartNo(iPartNo);
+//		code.setPartName(partName);
+//		code.setVenderCode(iVenderCode);
+//		code.setVersionNo(iVersionNo);
+//		code.setMouldCode(iMouldCode);
+		code.setSample(sampleService.findOne(sampleId));
 		code.setDateCode(iDateCode);
-		code.setMouldCode(iMouldCode);
 		code.setSerialNo(iSerialNo);
 		code.setScanCode(codesArea);
 		code.setMemo(errlog);

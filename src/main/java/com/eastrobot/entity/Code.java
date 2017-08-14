@@ -21,17 +21,20 @@ public @Data class Code {
 	@Id
 	private String id;
 	//样本码主键
-	private String sampleId;
+//	private String sampleId;
 	//料号
-	private String partNo;
+//	private String partNo;
 	//料号名称
-	private String partName;
+//	private String partName;
 	//版本号
-	private String versionNo;
+//	private String versionNo;
 	//厂商代码
-	private String venderCode;
+//	private String venderCode;
 	//模具号
-	private String mouldCode;
+//	private String mouldCode;
+	
+	private Sample sample;
+	
 	//日期码
 	private String dateCode;
 	//操作流水号
