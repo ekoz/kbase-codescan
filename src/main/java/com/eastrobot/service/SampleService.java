@@ -18,5 +18,4 @@ import com.eastrobot.entity.Sample;
 @Service
 public interface SampleService extends CrudRepository<Sample, Serializable>{
 
-	
 }

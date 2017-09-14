@@ -25,6 +25,8 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter{
         registry.addViewController("/code/index").setViewName("code/index");
         registry.addViewController("/sample").setViewName("sample/list");
         registry.addViewController("/sample/create").setViewName("sample/edit");
+        registry.addViewController("/attach").setViewName("attach/list");
+        registry.addViewController("/attach/index").setViewName("attach/index");
         
 		super.addViewControllers(registry);
 	}

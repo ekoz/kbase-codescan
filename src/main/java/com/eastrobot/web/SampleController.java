@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,14 +35,14 @@ public class SampleController {
 		return sample;
 	}
 	
-	@RequestMapping("save")
+	@PostMapping("save")
 	@ResponseBody
 	public Sample save(@RequestBody Sample sample){
 		sampleService.save(sample);
 		return sample;
 	}
 	
-	@RequestMapping("delete")
+	@PostMapping("delete")
 	@ResponseBody
 	public void delete(String id){
 		sampleService.delete(id);

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <th:block th:include="script :: headerFragment" th:with="title='文件上传'"/>
+	</head>
+	<body>
+		<th:block th:include="index :: bodyFragment" />
+		<form th:action="@{/attach/upload}" enctype="multipart/form-data" method="post">
+			<input type="file" name="file" />
+			<br/>
+			<input type="submit" value="Submit" />
+		</form>
+	</body>
+</html>
