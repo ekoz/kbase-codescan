@@ -11,6 +11,11 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.springframework.data.mongodb.gridfs.GridFsResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,9 +25,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.eastrobot.entity.Attach;
-import com.eastrobot.service.AttachService;
+import com.eastrobot.service.FileService;
 import com.eastrobot.util.MetadataUtils;
-import com.sun.xml.internal.ws.util.MetadataUtil;
+import com.mongodb.BasicDBObject;
+import com.mongodb.gridfs.GridFSDBFile;
 
 /**
  * @author <a href="mailto:eko.z@outlook.com">eko.zhan</a>
@@ -34,17 +40,13 @@ import com.sun.xml.internal.ws.util.MetadataUtil;
 public class AttachController {
 
 	@Resource
-	private AttachService attachService;
+	private FileService fileService;
 	
 	@RequestMapping("upload")
 	@ResponseBody
 	public int upload(@RequestParam("file") MultipartFile file){
 		try {
-			Attach att = new Attach();
-			att.setName(file.getOriginalFilename());
-			att.setSize(file.getSize());
-			att.setContent(file.getBytes());
-			attachService.save(att);
+			fileService.save(file);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -54,29 +56,38 @@ public class AttachController {
 	@RequestMapping(value="get/{id}")
 	@ResponseBody()
 	public void get(@PathVariable String id, HttpServletResponse response) throws IOException{
-		Attach attach = attachService.findOne(id);
-		String name = attach.getName();
-		String extension = FilenameUtils.getExtension(name);
-		
-		response.setContentType(MetadataUtils.getContentType(extension));
+		GridFSDBFile dbFile = fileService.findById(id);
+		response.setContentType(dbFile.getContentType());
 
         OutputStream stream = response.getOutputStream();
-        stream.write(attach.getContent());
+        stream.write(IOUtils.toByteArray(dbFile.getInputStream()));
         stream.flush();
         stream.close();
 	}
 	
 	@RequestMapping("loadList")
 	@ResponseBody
-	public List<Attach> loadList(){
-		List<Attach> list = attachService.findAll();
-		return list;
+	public String loadList() throws JSONException, IOException{
+		JSONArray arr = new JSONArray();
+		
+		List<GridFSDBFile> list = fileService.findAll();
+		if (list!=null){
+			for (GridFSDBFile dbFile : list) {
+				JSONObject json = new JSONObject();
+				json.put("id", dbFile.getId());
+				json.put("name", dbFile.getMetaData().get(FileService.FILE_NAME));
+				json.put("size", dbFile.getLength());
+				json.put("createDate", dbFile.getUploadDate().getTime());
+				arr.put(json);
+			}
+		}
+		return arr.toString();
 	}
 	
 	@PostMapping("delete")
 	@ResponseBody
 	public int delete(@RequestParam("id") String id){
-		attachService.delete(id);
+		fileService.deleteById(id);
 		return 1;
 	}
 }
